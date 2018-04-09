@@ -1,0 +1,39 @@
+version: '3'
+services:
+  app:
+    build: ./app/
+#    deploy:
+#      replicas: 1
+#      resources:
+#        limits:
+#        cpus: "0.1"
+#        memory: 50M
+#        restart_policy:
+#          condition: on-failure
+    expose:
+     - 5000
+#    ports:
+#      - "5000:5000"
+#    networks:
+#      - web_nw
+
+  web:
+    build: ./web/
+#    deploy:
+#      replicas: 1
+#      resources:
+#        limits:
+#        cpus: "0.1"
+#        memory: 50M
+#        restart_policy:
+#          condition: on-failure
+    ports:
+      - "80:8080"    # map (host port : container port)
+    depends_on:
+      - app
+#    networks:
+#      - web_nw
+
+#networks:
+#  web_nw:
+#    driver: bridge
