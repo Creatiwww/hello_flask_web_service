@@ -23,22 +23,23 @@ def init_db():
     return "DB created"
 
 
-def get_all():
-    out = "users: "
-    for instance in session.query(Users).order_by(Users.id):
-        out += instance.name
+def get_all_d():
+    out = "distance values: "
+    for instance in session.query(Distances).order_by(Distances.id):
+        out = out + str(instance.value) + "; "
     return out
 
 
-def add(user_name):
-    user_name = Users(name=user_name)
-    session.add(user_name)
+def add(distance_value):
+    distance = Distances(value=distance_value)
+    session.add(distance)
     session.commit()
-    return "user was added to DB"
+    return "distance value added to DB"
 
 
-class Users(Base):
-    __tablename__ = 'users_table'
+# database schemas
+class Distances(Base):
+    __tablename__ = 'distances_table'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    value = Column(Integer, nullable=False)
